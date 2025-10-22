@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog 2 - Firmas por Colombia</title>
+    <link rel="shortcut icon" href="./images/Favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/stilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navbar con gradiente azul-amarillo */
+        .navbar-gradient {
+            background: linear-gradient(90deg, #1E3A8A 0%, #3B82F6 40%, #FDE047 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-links-right {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+        }
+
+        .nav-links-right a:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* Ajustar body_swiper para que funcione como hero con márgenes redondeados */
+        .body_swiper {
+            position: relative;
+            overflow: hidden;
+            margin: 70px 20px 0 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .body_swiper .img_swiper {
+            border-radius: 25px;
+            object-fit: cover;
+        }
+
+        .body_swiper .swiper-slide {
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        /* Estilos para el mapa hover */
+        .mapa-container:hover {
+            transform: rotate(0deg) scale(1.05) !important;
+        }
+
+        /* Contador de firmas */
+        .contador-firmas {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contador-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contador-titulo {
+            font-size: 2.5rem;
+            color: #1a472a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .contador-numero {
+            font-size: 4rem;
+            color: #FF0000;
+            font-weight: 900;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .contador-texto {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Sección de comentarios mejorada */
+        .comentarios {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+
+        .comentarios-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comentarios h2 {
+            text-align: center;
+            color: #1a472a;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .formulario-comentario {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .comentarios textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 20px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .comentarios textarea:focus {
+            border-color: #1a472a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-enviar {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-enviar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 71, 42, 0.4);
+        }
+
+        .comentarios-lista {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .comentario {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #1a472a;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .comentario:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .comentario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comentario strong {
+            color: #1a472a;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .comentario-fecha {
+            color: #999;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+
+        .comentario p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .comentario-emoji {
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Responsive para navbar con gradiente */
+        @media (max-width: 768px) {
+            .navbar-gradient {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-logo h2 {
+                font-size: 1.3rem;
+            }
+
+            .nav-links-right {
+                gap: 1.5rem;
+            }
+
+            .nav-links-right a {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            .body_swiper {
+                margin: 120px 15px 0 15px !important;
+                border-radius: 20px !important;
+            }
+
+            .body_swiper .slide-overlay > div {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                text-align: center;
+            }
+
+            .hero__title {
+                font-size: 2.8rem !important;
+            }
+
+            .hero__paragraph {
+                font-size: 1.2rem !important;
+            }
+
+            .contador-numero {
+                font-size: 3rem;
+            }
+
+            .comentarios {
+                padding: 2rem 1rem;
+            }
+
+            .mapa-container {
+                transform: none !important;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadein {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Efectos adicionales */
+        .sparkle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar con logo y gradiente -->
+    <nav class="navbar-gradient">
+        <div class="nav-logo">
+            <h2>La Nueva Colombia.</h2>
+        </div>
+        <div class="nav-links-right">
+            <a href="index.html">Inicio</a>
+            <a href="blog.html">Acerca de</a>
+            <a href="index.html#propuestas">Voluntarios</a>
+            <a href="index.html#contacto">Formulario</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section ajustado para el navbar superior -->
+    <section class="body_swiper" style="min-height: 100vh; display: flex; align-items: center;">
+        <!-- Fondo igual al index -->
+        <div class="swiper-slide first-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+            <img src="images/Murillo-Gente2.jpg" alt="Murillo" class="img_swiper first-img">
+            <div class="slide-overlay big-text" style="position: relative; z-index: 10; padding: 0 2rem;">
+                <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 4rem; align-items: center;">
+                    <div class="hero-content-main">
+                        <h1 class="hero__title" style="font-size: 4rem; margin-bottom: 1.5rem;">
+                            ¡Somos <span style="color: #FF0000; background: white; padding: 0 15px; border-radius: 10px; display: inline-block;">X</span> millones de colombianos!
+                        </h1>
+                        <p class="hero__paragraph" style="font-size: 1.4rem; margin-bottom: 2rem;">
+                            Sé parte de este movimiento histórico. Únete y deja tu huella por una Colombia más justa, próspera y unida.
+                        </p>
+                        <a href="index.html#contacto" class="slide-button">Únete ahora</a>
+                    </div>
+                    
+                    <div class="mapa-container" style="background: rgba(255,255,255,0.9); border-radius: 20px; padding: 20px; transform: rotate(-5deg); transition: all 0.3s ease;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_map_of_Colombia.svg/1200px-Flag_map_of_Colombia.svg.png" 
+                             alt="Mapa de Colombia" style="width: 100%; height: auto; border-radius: 15px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contador de firmas -->
+    <section class="contador-firmas">
+        <div class="contador-container">
+            <h2 class="contador-titulo">Colombianos Unidos por el Cambio</h2>
+            <div class="contador-numero" id="contadorFirmas">2,847,392</div>
+            <p class="contador-texto">ciudadanos ya se han sumado a esta transformación histórica</p>
+        </div>
+    </section>
+
+    <!-- Sección de comentarios mejorada -->
+    <section class="comentarios">
+        <div class="comentarios-container">
+            <h2>💬 Voces del Cambio</h2>
+            
+            <div class="formulario-comentario">
+                <textarea id="nuevoComentario" placeholder="Comparte tu mensaje de esperanza por Colombia..."></textarea>
+                <button class="btn-enviar" onclick="agregarComentario()">
+                    <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                </button>
+            </div>
+            
+            <div class="comentarios-lista" id="listaComentarios">
+                <div class="comentario animate-fadein">
+                    <div class="comentario-header">
+                        <strong>Ana María Rodríguez</strong>
+                        <span class="comentario-fecha">Hace 1 hora</span>
+                    </div>
+                    <p>¡Por fin un movimiento que nos representa a todos! Con Luis Gilberto construiremos la Colombia que nuestros hijos merecen. <span class="comentario-emoji">🇨🇴💛</span></p>
+                </div>
+                
+                <div class="comentario animate-fadein">
+                    <div class="comentario-header">
+                        <strong>Carlos Mendoza</strong>
+                        <span class="comentario-fecha">Hace 2 horas</span>
+                    </div>
+                    <p>Desde Medellín apoyamos este cambio. Ya es hora de que Colombia tenga un líder que entienda las necesidades del pueblo. <span class="comentario-emoji">🙌✨</span></p>
+                </div>
+                
+                <div class="comentario animate-fadein">
+                    <div class="comentario-header">
+                        <strong>María Fernanda López</strong>
+                        <span class="comentario-fecha">Hace 3 horas</span>
+                    </div>
+                    <p>Como madre de familia, veo en Murillo la esperanza de un futuro mejor para nuestros niños. ¡Vamos por esa Colombia unida! <span class="comentario-emoji">👨‍👩‍👧‍👦💪</span></p>
+                </div>
+                
+                <div class="comentario animate-fadein">
+                    <div class="comentario-header">
+                        <strong>Jorge Ramírez</strong>
+                        <span class="comentario-fecha">Hace 4 horas</span>
+                    </div>
+                    <p>Agricultor del Huila aquí. Murillo conoce nuestras luchas y necesidades. Con él, el campo colombiano florecerá. <span class="comentario-emoji">🌾🚜</span></p>
+                </div>
+                
+                <div class="comentario animate-fadein">
+                    <div class="comentario-header">
+                        <strong>Sofía Herrera</strong>
+                        <span class="comentario-fecha">Hace 5 horas</span>
+                    </div>
+                    <p>Estudiante universitaria y creo firmemente en este proyecto. ¡La educación y la juventud serán prioridad! <span class="comentario-emoji">📚🎓</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__wrapper">
+            <div class="footer__column brand">
+                <h2>Una Colombia <span style="color: #FFD700;">Unida</span></h2>
+                <p>Por un país más justo, sostenible y con oportunidades para todos.</p>
+                <p>🇨🇴 Bogotá, Colombia</p>
+            </div>
+
+            <div class="footer__column">
+                <h3>🔗 Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="blog.html">Conoce a Murillo</a></li>
+                    <li><a href="index.html#propuestas">Propuestas</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer__column">
+                <h3>📋 Información</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Uso</a></li>
+                    <li><a href="#">Código de Ética</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+            </div>
+
+            <div class="footer__column">
+                <h3>🌐 Redes Sociales</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/luisgmurillou/" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="#">💬 WhatsApp</a></li>
+                    <li><a href="https://www.facebook.com/LuisGilbertoMurilloUrrutia/" target="_blank" rel="noopener">Facebook</a></li>
+                    <li><a href="https://x.com/LuisGMurillo" target="_blank" rel="noopener">X (Twitter)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <p>© 2025 Una Colombia Unida. Todos los derechos reservados.</p>
+            <p><strong>Luis Gilberto Murillo</strong> – Candidato Presidencial 🇨🇴</p>
+        </div>
+    </footer>
+
+    <script>
+        // Contador animado de firmas
+        function animarContador() {
+            const contador = document.getElementById('contadorFirmas');
+            const target = 2847392;
+            let current = 2800000;
+            const increment = 500;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                contador.textContent = current.toLocaleString();
+            }, 50);
+        }
+
+        // Agregar comentario mejorado
+        function agregarComentario() {
+            const textarea = document.getElementById('nuevoComentario');
+            const texto = textarea.value.trim();
+            
+            if (texto === '') {
+                alert('✍️ Por favor, escribe tu mensaje antes de enviar.');
+                return;
+            }
+
+            if (texto.length < 10) {
+                alert('📝 Tu mensaje debe tener al menos 10 caracteres.');
+                return;
+            }
+
+            const nombres = ['Juan Carlos', 'María Elena', 'Diego', 'Alejandra', 'Roberto', 'Camila', 'Andrés', 'Isabella'];
+            const apellidos = ['González', 'Martínez', 'García', 'López', 'Hernández', 'Vargas', 'Morales', 'Castro'];
+            
+            const nombreAleatorio = nombres[Math.floor(Math.random() * nombres.length)];
+            const apellidoAleatorio = apellidos[Math.floor(Math.random() * apellidos.length)];
+            
+            const emojis = ['🇨🇴💛', '✨🙌', '💪❤️', '🌟💚', '🎯✊', '🚀💛', '⭐🔥', '💙❤️'];
+            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+
+            const listaComentarios = document.getElementById('listaComentarios');
+            const nuevoComentario = document.createElement('div');
+            nuevoComentario.className = 'comentario animate-fadein';
+            nuevoComentario.innerHTML = `
+                <div class="comentario-header">
+                    <strong>${nombreAleatorio} ${apellidoAleatorio}</strong>
+                    <span class="comentario-fecha">Ahora mismo</span>
+                </div>
+                <p>${texto} <span class="comentario-emoji">${emojiAleatorio}</span></p>
+            `;
+            
+            listaComentarios.insertBefore(nuevoComentario, listaComentarios.firstChild);
+            textarea.value = '';
+            
+            // Animación de entrada
+            nuevoComentario.style.opacity = '0';
+            nuevoComentario.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                nuevoComentario.style.transition = 'all 0.3s ease';
+                nuevoComentario.style.opacity = '1';
+                nuevoComentario.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Mostrar mensaje de éxito
+            mostrarNotificacion('¡Tu mensaje ha sido publicado! 🎉');
+        }
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje) {
+            const notif = document.createElement('div');
+            notif.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #1a472a;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+            notif.textContent = mensaje;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.style.opacity = '1';
+                notif.style.transform = 'translateX(0)';
+            }, 10);
+            
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                notif.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(notif), 300);
+            }, 3000);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar contador animado
+            setTimeout(animarContador, 1000);
+            
+            // Enter para enviar comentario
+            document.getElementById('nuevoComentario').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    agregarComentario();
+                }
+            });
+            
+            // Animación al hacer scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadein');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.comentario').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Actualizar contador cada 30 segundos
+        setInterval(() => {
+            const contador = document.getElementById('contadorFirmas');
+            let actual = parseInt(contador.textContent.replace(/,/g, ''));
+            actual += Math.floor(Math.random() * 50) + 10;
+            contador.textContent = actual.toLocaleString();
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Gilberto Murillo - La Nueva Colombia</title>
+    <link rel="shortcut icon" href="./images/Favicon.png" type="image/x-icon">
+    <!-- Font Awesome para iconos más profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('images/Fondo_Splash.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Overlay oscuro para mejorar legibilidad */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .splash-container {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            position: relative;
+            max-width: 600px;
+            padding: 40px 20px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+            animation: scaleIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .main-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            background: transparent;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Logo que ahora va debajo de la imagen principal */
+        .bottom-logo {
+            margin: 20px 0 15px;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        .bottom-logo img {
+            width: 400px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .bottom-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Título que ahora va en la esquina superior derecha */
+        .corner-title {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            z-index: 15;
+            animation: slideInRight 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #0800ff 0%, #00bfff 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+            animation: bounceIn 1s ease-out 1.5s both;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            10% {
+                transform: translateY(-10px);
+                opacity: 0.3;
+            }
+            30% {
+                transform: translateY(-5px);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-3px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.6);
+            background: linear-gradient(135deg, #FF8A00 0%, #FFE55C 100%);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .social-media {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: slideInLeft 1s ease-out 1.8s both;
+            z-index: 10000;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* Colores específicos para cada red social al hacer hover */
+        .social-icon.tiktok:hover {
+            background: #000000;
+            color: #ff0050;
+            border-color: #ff0050;
+        }
+
+        .social-icon.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: white;
+            border-color: #bc1888;
+        }
+
+        .social-icon.facebook:hover {
+            background: #1877f2;
+            color: white;
+            border-color: #1877f2;
+        }
+
+        .social-icon.whatsapp:hover {
+            background: #25d366;
+            color: white;
+            border-color: #25d366;
+        }
+
+        .continue-link {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out 2.1s both;
+        }
+
+        .continue-link:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .continue-link::after {
+            content: ' >';
+            margin-left: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .corner-title {
+                font-size: 1.2rem;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .main-image {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .bottom-logo img {
+                width: 200px;
+            }
+            
+            .social-media {
+                left: 15px;
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .continue-link {
+                bottom: 20px;
+                right: 20px;
+                font-size: 12px;
+            }
+            
+            .cta-button {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-container {
+                padding: 20px 15px;
+            }
+            
+            .corner-title {
+                font-size: 1rem;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .main-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .bottom-logo img {
+                width: 150px;
+            }
+        }
+
+        /* Efectos de partículas flotantes */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Título que ahora va en la esquina superior derecha -->
+    <h1 class="corner-title">La nueva Colombia</h1>
+
+    <!-- Contenido principal -->
+    <div class="splash-container">
+        <div class="logo-container">
+            <img src="images/Murillo_Principal.png" alt="Luis Gilberto Murillo" class="main-image" onerror="this.src='images/Muriillo2.png'">
+        </div>
+        
+        <!-- Logo que ahora va debajo de la imagen principal -->
+        <div class="bottom-logo">
+            <img src="images/La nueva colombia-02.png" alt="La Nueva Colombia" onerror="this.style.display='none'">
+        </div>
+        
+        <a href="#" class="cta-button" onclick="enterSite()">
+           Conocenos
+        </a>
+    </div>
+
+    <!-- Redes sociales con Font Awesome icons -->
+    <div class="social-media">
+        <a href="https://www.instagram.com/luisgmurillou/" target="_blank" class="social-icon instagram" title="Instagram" rel="noopener">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/LuisGilbertoMurilloUrrutia/" target="_blank" class="social-icon facebook" title="Facebook" rel="noopener">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://x.com/LuisGMurillo" target="_blank" class="social-icon x" title="X (Twitter)" rel="noopener">
+            <img src="images/x.svg" alt="X" style="width: 22px; height: 22px; display: block; margin: auto;" />
+        </a>
+    </div>
+
+    <!-- Enlace continuar -->
+    <a href="#" class="continue-link" onclick="enterSite()">Continuar en este sitio</a>
+
+    <script>
+        // Crear partículas flotantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 6 + 2;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + '%';
+                particle.style.animationDelay = delay + 's';
+                particle.style.animationDuration = duration + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Función para entrar al sitio principal
+        function enterSite() {
+            document.body.style.animation = 'fadeOut 0.8s ease-in-out forwards';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        }
+
+        // Animación de salida
+        const fadeOutKeyframes = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+            }
+        `;
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = fadeOutKeyframes;
+        document.head.appendChild(styleSheet);
+
+        // Inicializar partículas cuando carga la página
+        document.addEventListener('DOMContentLoaded', createParticles);
+
+        // Auto-redirect después de 10 segundos (opcional)
+        setTimeout(() => {
+            const continueLink = document.querySelector('.continue-link');
+            if (continueLink) {
+                continueLink.style.animation = 'pulse 1s infinite';
+                continueLink.textContent = '¡Haz clic para continuar!';
+            }
+        }, 8000);
+
+        // Efecto de pulsación
+        const pulseKeyframes = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); opacity: 0.8; }
+                50% { transform: scale(1.05); opacity: 1; }
+            }
+        `;
+        const pulseStyleSheet = document.createElement('style');
+        pulseStyleSheet.textContent = pulseKeyframes;
+        document.head.appendChild(pulseStyleSheet);
+    </script>
+</body>
+</html>

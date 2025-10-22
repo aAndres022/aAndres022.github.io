@@ -1,0 +1,22 @@
+{
+  "name": "my-static-site",
+  "version": "1.0.0",
+  "description": "A simple static website with CSS styling and JavaScript animations.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "keywords": [
+    "static",
+    "website",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
